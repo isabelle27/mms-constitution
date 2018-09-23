@@ -8,4 +8,4 @@ jobs:
        - run: latexmk constitution.tex
        - run: pdflatex constitution.tex
        - store_artifacts:
-           path: build/
+           path: constitution.pdf
