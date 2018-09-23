@@ -5,7 +5,6 @@ jobs:
        - image: koppor/texlive
      steps:
        - checkout
-       - run: latexmk constitution.tex
-       - run: pdflatex constitution.tex
+       - run: ./go
        - store_artifacts:
-           path: constitution.pdf
+           path: build/constitution.pdf
