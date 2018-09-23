@@ -1,17 +1,23 @@
 version: 2
 jobs:
   build:
+    working_directory: /tmp
     docker:
       - image: koppor/texlive
     steps:
       - checkout
       - run: ./go
-      - store_artifacts:
-          path: build/constitution.pdf
+      - persist_to_workspace:
+        root: /tmp/build
+        paths:
+          - build/*
   release:
+    working_directory: /tmp
     docker:
       - image: tsub/ghr
     steps:
+      - attach_workspace:
+        at: /tmp/build
       - run: ghr -t $GITHUB_TOKEN -u $CIRCLE_PROJECT_USERNAME -r $CIRCLE_PROJECT_REPONAME v1.0.$CIRCLE_BUILD_NUM $CIRCLE_ARTIFACTS/ || true
 
 workflows:
