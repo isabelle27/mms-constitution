@@ -1,18 +1,16 @@
 version: 2
 jobs:
   build:
-    working_directory: /tmp
     docker:
       - image: koppor/texlive
     steps:
       - checkout
       - run: ./go
       - persist_to_workspace:
-          root: /tmp/build
+          root: build
           paths:
             - build/*
   release:
-    working_directory: /tmp
     docker:
       - image: tsub/ghr
     steps:
